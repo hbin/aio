@@ -1,0 +1,33 @@
+version: "2"
+
+services:
+  alist:
+    image: xhofe/alist
+    container_name: alist
+    restart: always
+    environment:
+      - PUID=0
+      - PGID=0
+      - UMASK=022
+      - TZ=Asia/Chongqing
+    volumes:
+      - "${ALIST_SHARE_DIR}:/share"
+    ports:
+      - '5244:5244'
+  samba:
+    build: samba
+    container_name: samba
+    restart: always
+    environment:
+      - PUID=0
+      - PGID=0
+      - UMASK=022
+      - TZ=Asia/Chongqing
+    volumes:
+      - "${SMB_SHARE_DIR}:/share"
+    ports:
+      - '137:137/udp'
+      - '138:138/udp'
+      - '139:139/tcp'
+      - '445:445/tcp'
+    command: '-r -S -s "share;/share;yes;no;yes;all" -p'
