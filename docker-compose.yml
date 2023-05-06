@@ -11,7 +11,8 @@ services:
       - UMASK=022
       - TZ=Asia/Chongqing
     volumes:
-      - "${ALIST_SHARE_DIR}:/share"
+      - "${ALIST_PUBLIC_DIR}:/public"
+      - "${ALIST_PRIVATE_DIR}:/private"
     ports:
       - '5244:5244'
   samba:
